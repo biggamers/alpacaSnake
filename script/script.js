@@ -113,17 +113,21 @@ function move() {
 		let b = snakeBody[snakeBody.length-1].getAttribute('posY');
 		snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b +'"]'));
 		createMouse();
-		mouseTotal ++;
-		if (mouseTotal % 2 == 0) { 
-			coordinates = createAlpaca();
-			alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
-			alpaca[alpaca.length - 1].classList.add('alpaca');
-		}
+	}
+
+	// Спаун альпак
+	if ( !steps & (snakeBody.length > 6) ) {
+		setTimeout(() => { 
+		coordinates = createAlpaca();
+		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
+		alpaca[alpaca.length - 1].classList.add('alpaca');
+		}, 690);
+		
 	}
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		setTimeout(() => { alert('Игра закончилась..'); }, 200);
+		setTimeout(() => { alert('Игра закончилась..'); }, 230);
 		clearInterval(interval);
 		for (let i = 0; i < snakeBody.length; i++) {
 			snakeBody[i].style.background = 'url("icons/cry.png") center no-repeat';
@@ -142,7 +146,7 @@ function move() {
 	steps = true;
 }
 
-let interval = setInterval(move, 200);
+let interval = setInterval(move, 230);
 
 // Нажатие клавиш
 window.addEventListener('keydown', function(e) {

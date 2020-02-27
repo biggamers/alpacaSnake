@@ -4,31 +4,35 @@
 
 body {
 	margin: auto;
-	background: linear-gradient(90deg, #ede053, #97ff05 32% 68%, #ede053);
+	background: linear-gradient(90deg, #ede053, #97ff05 20% 80%, #ede053);
 }
 
 .field {
-	width: 828px;
-	height: 529px;
+	width: 1080px;
+	height: 690px;
 	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
 }
 
 .excel {
-	width: 23px;
-	height: 23px;
+	width: 30px;
+	height: 30px;
 	padding: 2px;
 }
 
 .snakeBody {
+	height: 27px;
+	width: 27px;
 	background: url(../icons/body.png);
 	background-size: cover;
 	border-radius: 40%;
-	border: 2px solid #000;
+	border: 1px solid #000;
 }
 
 .head {
+	width: 30px;
+	height: 30px;
 	background: url(../icons/head.png);
 	background-size: cover;
 	border-radius: 10%;
