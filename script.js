@@ -2,7 +2,8 @@ input = document.createElement('input');
 document.body.appendChild(input);
 input.style.cssText = `
 margin: auto;
-margin-top: 40px;
+margin-top: 0px;
+margin-bottom: 40px
 font-size: 35px;
 display: block`;
 input.value = ` Мышь: еда, Альпака: нет..`;
