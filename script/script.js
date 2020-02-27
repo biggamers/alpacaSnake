@@ -1,35 +1,31 @@
-input = document.createElement('input');
-document.body.appendChild(input);
-input.style.cssText = `
-margin: auto;
-margin-top: 0px;
-margin-bottom: 40px
-font-size: 35px;
-display: block`;
-input.value = ` Мышь: еда, Альпака: нет..`;
-size = 17;
-
+let size = 10;
+// Задаем поле игры
+let fieldHeight = 23, fieldWidth = 36;
 let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
 
-for (let i = 0; i < size**2; i++) {
+// Задаем клетки и заполняем ими поле
+for (let i = 0; i < fieldHeight * fieldWidth; i++) {
 	let excel = document.createElement('div');
 	field.appendChild(excel);
 	excel.classList.add('excel');
 } 
-let excel = document.getElementsByClassName('excel');
-let x = 1, y = size;
 
+// Задаем кооординаты клеткам
+let excel = document.getElementsByClassName('excel');
+let x = 1, y = fieldHeight;
 for (let i = 0; i < excel.length; i++) {
-	if (x>size) {
-		x-=size;
+	if (x>fieldWidth) {
+		x-=fieldWidth;
 		y--;
 	}
 	excel[i].setAttribute('posX', x);
 	excel[i].setAttribute('posY', y);
 	x++;
 }
+
+// Создание змейки 
 function generateSnake() {
 	let posX = Math.round(Math.random()*(size-3) + 3);
 	let posY = Math.round(Math.random()*(size-1) + 1);
@@ -37,7 +33,6 @@ function generateSnake() {
 }
 let coordinates = generateSnake();
 let snakeBody = [document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'), document.querySelector('[posX = "' + (coordinates[0]-1) + '"][posY = "' + coordinates[1] + '"]'), document.querySelector('[posX = "' + (coordinates[0]-2) + '"][posY = "' + coordinates[1] + '"]')];
-
 for (let i = 0; i < snakeBody.length; i++) {
 	snakeBody[i].classList.add('snakeBody');
 }
@@ -82,14 +77,7 @@ alpacaChecker[0] = createAlpaca();
 let direction = 'right', steps = false;
 let scoreA = 0.5, scoreB = 1, scoreTotal = 0, mouseTotal = 0;
 
-input = document.createElement('input');
-document.body.appendChild(input);
-input.style.cssText = `
-margin: auto;
-margin-top: 40px;
-font-size: 30px;
-display: block`;
-input.value = ` Па-аау, Ваш счёт: ${scoreTotal}`;
+
 
 function move() {
 	let snakeCoordinates = [snakeBody[0].getAttribute('posX'), snakeBody[0].getAttribute('posY')];

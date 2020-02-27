@@ -3,23 +3,22 @@
 }
 
 body {
-	margin: 100px;
-	margin-top 10px;
+	margin: auto;
+	background: linear-gradient(90deg, #ede053, #97ff05 32% 68%, #ede053);
 }
 
 .field {
-	width: 629px;
-	height: 629px;
-	margin: 0 auto;
+	width: 828px;
+	height: 529px;
+	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
-	background-color: #cccccc;
 }
 
 .excel {
-	width: 37px;
-	height: 37px;
-	padding: 4px;
+	width: 23px;
+	height: 23px;
+	padding: 2px;
 }
 
 .snakeBody {
