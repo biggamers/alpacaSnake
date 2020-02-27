@@ -1,5 +1,5 @@
 // Задаем поле игры
-let fieldHeight = 23, fieldWidth = 36;
+let fieldHeight = 13, fieldWidth = 20, count = 0, seconds = 0, minutes = 0;
 let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
@@ -63,11 +63,11 @@ function createAlpaca() {
 		return [posX, posY];
 	}
 	let alpacaCoordinates = generateAlpaca();
-	let NEWalpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
+	let alpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
 
-	while(NEWalpaca.classList.contains('snakeBody') || NEWalpaca.classList.contains('mouse')) {
-		let alpacaCoordinates = generateAlpaca();
-		NEWalpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
+	while(alpaca.classList.contains('snakeBody') || alpaca.classList.contains('mouse')) {
+		alpacaCoordinates = generateAlpaca();
+		alpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
 	}
 	return [alpacaCoordinates[0], alpacaCoordinates[1]];
 }
@@ -105,29 +105,9 @@ function move() {
 			break;
 	}
 
-	// Поедание мышей
-	if (snakeBody[0].getAttribute('posX') == mouse.getAttribute('posX') && snakeBody[0].getAttribute('posY') == mouse.getAttribute('posY') ) {
-		mouse.classList.remove('mouse');
-		snakeBody[0].classList.add('head');
-		let a = snakeBody[snakeBody.length-1].getAttribute('posX');
-		let b = snakeBody[snakeBody.length-1].getAttribute('posY');
-		snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b +'"]'));
-		createMouse();
-	}
-
-	// Спаун альпак
-	if ( !steps ) {
-		setTimeout(() => { 
-		coordinates = createAlpaca();
-		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
-		alpaca[alpaca.length - 1].classList.add('alpaca');
-		}, 690);
-		
-	}
-
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		setTimeout(() => { alert('Игра закончилась..'); }, 230);
+		setTimeout(() => { alert("It's over! Your score: " + (snakeBody.length-3)); }, 200);
 		clearInterval(interval);
 		for (let i = 0; i < snakeBody.length; i++) {
 			snakeBody[i].style.background = 'url("icons/cry.png") center no-repeat';
@@ -144,9 +124,53 @@ function move() {
 		snakeBody[i].classList.add('snakeBody');
 	}
 	steps = true;
+
+	// Поедание мышей
+	if (snakeBody[0].getAttribute('posX') == mouse.getAttribute('posX') && snakeBody[0].getAttribute('posY') == mouse.getAttribute('posY') ) {
+		mouse.classList.remove('mouse');
+		snakeBody[0].classList.add('head');
+		let a = snakeBody[snakeBody.length-1].getAttribute('posX');
+		let b = snakeBody[snakeBody.length-1].getAttribute('posY');
+		snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b +'"]'));
+		createMouse();
+	}
+
+	// Спаун альпак
+	if ((Math.round(Math.random()*23) == 1) & steps) {
+		coordinates = createAlpaca();
+		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
+		alpaca[alpaca.length - 1].classList.add('alpaca');		
+	}
+	
+	// Таймер
+	count+=2;
+	if (count % 10 == 0) {
+		seconds++;
+		count=0;
+		if (seconds == 60) {
+			minutes++;
+			seconds=0;
+		}
+	}
+
+	input.value = `  Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
 }
 
-let interval = setInterval(move, 230);
+
+
+input = document.createElement('input');
+document.body.appendChild(input);
+input.style.cssText = `
+margin: auto;
+margin-top: 10px;
+font-size: 30px;
+display: block`;
+input.value = `  Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
+
+
+
+
+let interval = setInterval(move, 200);
 
 // Нажатие клавиш
 window.addEventListener('keydown', function(e) {
