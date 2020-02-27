@@ -22,8 +22,6 @@ body {
 }
 
 .snakeBody {
-	height: 27px;
-	width: 27px;
 	background: url(../icons/body.png);
 	background-size: cover;
 	border-radius: 40%;
@@ -31,8 +29,6 @@ body {
 }
 
 .head {
-	width: 30px;
-	height: 30px;
 	background: url(../icons/head.png);
 	background-size: cover;
 	border-radius: 10%;
