@@ -116,7 +116,7 @@ function move() {
 	}
 
 	// Спаун альпак
-	if ( !steps  ) {
+	if ( !steps ) {
 		setTimeout(() => { 
 		coordinates = createAlpaca();
 		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
