@@ -1,4 +1,3 @@
-let size = 10;
 // Задаем поле игры
 let fieldHeight = 23, fieldWidth = 36;
 let field = document.createElement('div');
@@ -27,8 +26,8 @@ for (let i = 0; i < excel.length; i++) {
 
 // Создание змейки 
 function generateSnake() {
-	let posX = Math.round(Math.random()*(size-3) + 3);
-	let posY = Math.round(Math.random()*(size-1) + 1);
+	let posX = Math.round(Math.random()*(fieldWidth-3) + 3);
+	let posY = Math.round(Math.random()*(fieldHeight-1) + 1);
 	return [posX, posY];
 }
 let coordinates = generateSnake();
@@ -38,10 +37,11 @@ for (let i = 0; i < snakeBody.length; i++) {
 }
 snakeBody[0].classList.add('head');
 
+// Создание мыши
 function createMouse() {
 	function generateMouse() {
-		let posX = Math.round(Math.random()*(size-1) + 1);
-		let posY = Math.round(Math.random()*(size-1) + 1);
+		let posX = Math.round(Math.random()*(fieldWidth-1) + 1);
+		let posY = Math.round(Math.random()*(fieldHeight-1) + 1);
 		return [posX, posY];
 	}
 	let mouseCoordinates = generateMouse();
@@ -51,112 +51,100 @@ function createMouse() {
 		let mouseCoordinates = generateMouse();
 		mouse = document.querySelector('[posX = "' + mouseCoordinates[0] + '"][posY = "' + mouseCoordinates[1] + '"]');
 	}
-
 	mouse.classList.add('mouse');
 }
 createMouse();
 
+// Создание альпаки
 function createAlpaca() {
 	function generateAlpaca() {
-		let posX = Math.round(Math.random()*(size-1) + 1);
-		let posY = Math.round(Math.random()*(size-1) + 1);
+		let posX = Math.round(Math.random()*(fieldWidth-1) + 1);
+		let posY = Math.round(Math.random()*(fieldHeight-1) + 1);
 		return [posX, posY];
 	}
 	let alpacaCoordinates = generateAlpaca();
-	alpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
+	let NEWalpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
 
-	while(alpaca.classList.contains('snakeBody') || alpaca.classList.contains('mouse')) {
+	while(NEWalpaca.classList.contains('snakeBody') || NEWalpaca.classList.contains('mouse')) {
 		let alpacaCoordinates = generateAlpaca();
-		alpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
+		NEWalpaca = document.querySelector('[posX = "' + alpacaCoordinates[0] + '"][posY = "' + alpacaCoordinates[1] + '"]');
 	}
-	alpaca.classList.add('alpaca');
-	return alpacaCoordinates[0] + 50*alpacaCoordinates[1];
+	return [alpacaCoordinates[0], alpacaCoordinates[1]];
 }
-let alpacaChecker = [0], alpacaTotal = 0;
-alpacaChecker[0] = createAlpaca();
+coordinates = createAlpaca(); 
+let alpaca = [document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]')];
+alpaca[0].classList.add('alpaca');
+
+// Описание движения
 let direction = 'right', steps = false;
-let scoreA = 0.5, scoreB = 1, scoreTotal = 0, mouseTotal = 0;
-
-
-
 function move() {
+
+	// Начало движения
 	let snakeCoordinates = [snakeBody[0].getAttribute('posX'), snakeBody[0].getAttribute('posY')];
 	snakeBody[0].classList.remove('head');
 	snakeBody[snakeBody.length-1].classList.remove('snakeBody');
 	snakeBody.pop();
+
+	// Смена направления
 	switch (direction) {
 		case 'right':
-			if (snakeCoordinates[0]==size) { snakeCoordinates[0]=0; }
+			if (snakeCoordinates[0]==fieldWidth) { snakeCoordinates[0]=0; }
 			snakeBody.unshift(document.querySelector('[posX = "' + (+snakeCoordinates[0] + 1) + '"][posY = "' + snakeCoordinates[1] + '"]'));
 			break;
 		case 'up':
-			if (snakeCoordinates[1]==size) { snakeCoordinates[1]=0; }
+			if (snakeCoordinates[1]==fieldHeight) { snakeCoordinates[1]=0; }
 			snakeBody.unshift(document.querySelector('[posX = "' + snakeCoordinates[0] + '"][posY = "' + (+snakeCoordinates[1] + 1) + '"]'));
 			break;
 		case 'left':
-			if (snakeCoordinates[0]==1) { snakeCoordinates[0]=size+1; }
+			if (snakeCoordinates[0]==1) { snakeCoordinates[0]=fieldWidth+1; }
 			snakeBody.unshift(document.querySelector('[posX = "' + (+snakeCoordinates[0] - 1) + '"][posY = "' + snakeCoordinates[1] + '"]'));
 			break;
 		case 'down':
-			if (snakeCoordinates[1]==1) { snakeCoordinates[1]=size+1; }
+			if (snakeCoordinates[1]==1) { snakeCoordinates[1]=fieldHeight+1; }
 			snakeBody.unshift(document.querySelector('[posX = "' + snakeCoordinates[0] + '"][posY = "' + (+snakeCoordinates[1] -1) + '"]'));
 			break;
 	}
-	if ( snakeBody[0].getAttribute('posX') == mouse.getAttribute('posX') && snakeBody[0].getAttribute('posY') == mouse.getAttribute('posY') ) {
+
+	// Поедание мышей
+	if (snakeBody[0].getAttribute('posX') == mouse.getAttribute('posX') && snakeBody[0].getAttribute('posY') == mouse.getAttribute('posY') ) {
 		mouse.classList.remove('mouse');
+		snakeBody[0].classList.add('head');
 		let a = snakeBody[snakeBody.length-1].getAttribute('posX');
 		let b = snakeBody[snakeBody.length-1].getAttribute('posY');
 		snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b +'"]'));
 		createMouse();
 		mouseTotal ++;
-		if (mouseTotal % 7 == 0) { 
-			alpacaTotal++;
-			alpacaChecker[alpacaTotal] = createAlpaca();
+		if (mouseTotal % 2 == 0) { 
+			coordinates = createAlpaca();
+			alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
+			alpaca[alpaca.length - 1].classList.add('alpaca');
 		}
-/*
-		scoreTotal = scoreA + scoreB;
-		scoreA = scoreB;
-		scoreB = scoreTotal;
-*/
-		scoreTotal+=scoreB;
-		scoreB+=scoreA;
-		input.value = ` Па-аау, Ваш счёт: ${scoreTotal}`;
 	}
-	let alpacaTest1 = false;
-	for (let i = 0; i < alpacaChecker.length; i++) {
-		if (alpacaChecker[i] == (parseInt(snakeBody[0].getAttribute('posX')) + 50 * parseInt(snakeBody[0].getAttribute('posY')))) { alpacaTest1 = true; }
-	}
-	if (alpacaTest1) {
-		alpaca.classList.remove('alpaca');
-		setTimeout(() => { alert('Игра закончилась!! Съедено приблизительно ' + mouseTotal + ' мышей... и одна АЛЬПАКА. гРР. ГррРРР.'); }, 200);
+
+	// Условия окончания игры
+	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
+		setTimeout(() => { alert('Игра закончилась..'); }, 200);
 		clearInterval(interval);
 		for (let i = 0; i < snakeBody.length; i++) {
-			snakeBody[i].style.background = 'url(../icons/cry.png) center no-repeat';
+			snakeBody[i].style.background = 'url("icons/cry.png") center no-repeat';
 			snakeBody[i].style.backgroundSize = 'cover';
 			snakeBody[i].style.border = '0px';
 			let randomRotation = Math.round(Math.random() * 120 - 100);
 			snakeBody[i].style.transform = 'rotate(' + randomRotation + 'deg)';
 		}
 	}
-	if (snakeBody[0].classList.contains('snakeBody')) {
-		setTimeout(() => { alert('Игра закончилась!! Съедено приблизительно ' + mouseTotal + ' мышей...'); }, 200);
-		clearInterval(interval);
-		for (let i = 0; i < snakeBody.length; i++) {
-			snakeBody[i].style.background = 'url(cry.png) center no-repeat';
-			snakeBody[i].style.backgroundSize = 'cover';
-			snakeBody[i].style.border = '0px';
-			let randomRotation = Math.round(Math.random() * 120 - 100);
-			snakeBody[i].style.transform = 'rotate(' + randomRotation + 'deg)';
-		}
-	}
+
+	// Конец движения
 	snakeBody[0].classList.add('head');
 	for (let i = 0; i < snakeBody.length; i++) {
 		snakeBody[i].classList.add('snakeBody');
 	}
 	steps = true;
 }
-let interval = setInterval(move, 300);
 
+let interval = setInterval(move, 200);
+
+// Нажатие клавиш
 window.addEventListener('keydown', function(e) {
 	if (steps) {
 		switch (e.keyCode) {
