@@ -1,5 +1,5 @@
 // Задаем поле игры
-let fieldHeight = 14, fieldWidth = 21, count = 1, seconds = 0, minutes = 0, time = '';
+let fieldHeight = 15, fieldWidth = 21, count = 1, seconds = 0, minutes = 0, time = '';
 let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
@@ -151,7 +151,7 @@ function move() {
 	}
 
 	// Спаун альпак
-	if ((Math.round(Math.random()*21) == 1) & steps) {
+	if ((Math.round(Math.random()*(alpaca.length+snakeBody.length)) == 1) & steps) {
 		coordinates = createAlpaca();
 		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
 		alpaca[alpaca.length - 1].classList.add('alpaca');		
@@ -174,7 +174,7 @@ function move() {
 	else { time = `${minutes}:${seconds}.${count}`; }
 
 	// Апдейт
-	input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
+	input.value = `   score . . ${snakeBody.length-3}   time . . ${time}`;
 }
 
 
@@ -182,16 +182,17 @@ function move() {
 input = document.createElement('input');
 document.body.appendChild(input);
 input.style.cssText = `
-width: 400px;
+width: 300px;
+height: 40px;
 background-color: #f5abef;
 border-radius: 7%;
-border: 3px solid #000;
-text-align: center;
+border: 4px solid #000;
+font: normal small-caps 120%/120% fantasy;
 display: flex;
 margin: auto;
 margin-top: 10px;
-font-size: 30px;`;
-input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
+font-size: 28px;`;
+input.value = `time..${time}   score..${snakeBody.length-3}`;
 
 // Запуск
 let interval = setInterval(move, 200);
