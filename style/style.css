@@ -21,28 +21,28 @@ body {
 	padding: 2px;
 }
 
+.alpaca {
+	background: url(../img/alpa.png);
+	background-size: cover;
+	border-radius: 15%;
+}
+
 .snakeBody {
-	background: url(../icons/body.png);
+	background: url(../img/body.png);
 	background-size: 110%;
 	border-radius: 40%;
 	border: 2px solid #000;
 }
 
 .head {
-	background: url(../icons/head.png);
+	background: url(../img/head.png);
 	background-size: cover;
 	border-radius: 10%;
 	border: 0px;
 }
 
 .mouse {
-	background: url(../icons/mouse.png);
-	background-size: cover;
-	border-radius: 15%;
-}
-
-.alpaca {
-	background: url(../icons/alpa.png);
+	background: url(../img/mouse.png);
 	background-size: cover;
 	border-radius: 15%;
 }

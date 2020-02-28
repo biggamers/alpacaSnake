@@ -107,12 +107,12 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		if (snakeBody.length == 3) { setTimeout(() => {alert("It's over!!\nYou scored NOTHING..\nlelz");}, 2000); }
-		else { setTimeout(() => { alert(`It's over!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\nNot that much..`);}, 3000); }
+		if (snakeBody.length == 3) { setTimeout(() => {alert("It's over!!\n\nYou scored NOTHING..\nlelz");}, 2000); }
+		else { setTimeout(() => { alert(`It's over!\n\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\nNot that much..`);}, 3000); }
 		steps = false;
 		clearInterval(interval);
 		for (let i = 0; i < snakeBody.length; i++) {
-			snakeBody[i].style.background = 'url("icons/cry.png") center no-repeat';
+			snakeBody[i].style.background = 'url("img/cry.png") center no-repeat';
 			snakeBody[i].style.backgroundSize = 'cover';
 			snakeBody[i].style.border = '0px';
 			let randomRotation = Math.round(Math.random() * 120 - 100);
