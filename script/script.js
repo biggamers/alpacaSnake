@@ -1,5 +1,6 @@
 // Задаем поле игры
 let fieldHeight = 13, fieldWidth = 21, count = 1, seconds = 0, minutes = 0, time = '';
+let topScore = 50, topTime = '03:21.3'
 let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
@@ -117,7 +118,7 @@ function move() {
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
 		endAudio.play();
 		if (snakeBody.length == 3) { setTimeout(() => {alert(`IT'S OVER!!\nYou scored NOTHING.... But you've reached ${time} seconds\n\n\nP.S. Do not eat alpacas.`);}, 600); }
-		else { setTimeout(() => { alert(`IT'S OVER!!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\n\n\nTop mouses killed: 67\nTop time elapsed: 07:49.1`);}, 1000); }
+		else { setTimeout(() => { alert(`IT'S OVER!!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\n\n\nTop mouses killed: ${topScore}\nTop time elapsed: ${topTime}`);}, 1000); }
 		steps = false;
 		clearInterval(interval);
 
