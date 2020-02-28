@@ -107,8 +107,8 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		if (snakeBody.length == 3) { setTimeout(() => {alert(`IT'S OVER!!\nYou scored NOTHING.... But you've reached ${time} seconds\n\n\nP.S. Do not eat alpacas.`);}, 1000); }
-		else { setTimeout(() => { alert(`IT'S OVER!!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\n\n\nTop mouses killed: 67\nTop time elapsed: 07:49.1`);}, 2000); }
+		if (snakeBody.length == 3) { setTimeout(() => {alert(`IT'S OVER!!\nYou scored NOTHING.... But you've reached ${time} seconds\n\n\nP.S. Do not eat alpacas.`);}, 600); }
+		else { setTimeout(() => { alert(`IT'S OVER!!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\n\n\nTop mouses killed: 67\nTop time elapsed: 07:49.1`);}, 1000); }
 		steps = false;
 		clearInterval(interval);
 
@@ -174,7 +174,7 @@ function move() {
 	else { time = `${minutes}:${seconds}.${count}`; }
 
 	// Апдейт
-	input.value = `   score . . ${snakeBody.length-3}   time . . ${time}`;
+	input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
 }
 
 
@@ -182,17 +182,18 @@ function move() {
 input = document.createElement('input');
 document.body.appendChild(input);
 input.style.cssText = `
-width: 300px;
-height: 40px;
+width: 420px;
+height: 50px;
 background-color: #f5abef;
 border-radius: 7%;
-border: 4px solid #000;
-font: normal small-caps 120%/120% fantasy;
+border: 3px solid #000;
+text-align: center;
+font-family: Verdana, Arial, Helvetica, sans-serif;
 display: flex;
-margin: auto;
+margin: 0 auto;
 margin-top: 10px;
-font-size: 28px;`;
-input.value = `time..${time}   score..${snakeBody.length-3}`;
+font-size: 30px;`;
+input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
 
 // Запуск
 let interval = setInterval(move, 200);
