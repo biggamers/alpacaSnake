@@ -4,6 +4,14 @@ let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
 
+// Подгружаем звуки
+let turnAudio = new Audio();
+let scoreAudio = new Audio();
+let endAudio = new Audio();
+turnAudio.src = "audio/turn.mp3"
+scoreAudio.src = "audio/score.mp3"
+endAudio.src = "audio/end.mp3"
+
 // Задаем клетки и заполняем ими поле
 for (let i = 0; i < fieldHeight * fieldWidth; i++) {
 	let excel = document.createElement('div');
@@ -107,6 +115,7 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
+		endAudio.play();
 		if (snakeBody.length == 3) { setTimeout(() => {alert(`IT'S OVER!!\nYou scored NOTHING.... But you've reached ${time} seconds\n\n\nP.S. Do not eat alpacas.`);}, 600); }
 		else { setTimeout(() => { alert(`IT'S OVER!!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\n\n\nTop mouses killed: 67\nTop time elapsed: 07:49.1`);}, 1000); }
 		steps = false;
@@ -142,6 +151,7 @@ function move() {
 
 	// Поедание мышей
 	if (snakeBody[0].getAttribute('posX') == mouse.getAttribute('posX') && snakeBody[0].getAttribute('posY') == mouse.getAttribute('posY') ) {
+		scoreAudio.play();
 		mouse.classList.remove('mouse');
 		snakeBody[0].classList.add('head');
 		let a = snakeBody[snakeBody.length-1].getAttribute('posX');
@@ -204,19 +214,31 @@ window.addEventListener('keydown', function(e) {
 		switch (e.keyCode) {
 			case 37:
 			case 65:
-				if (direction != 'right') { direction = 'left'; }
+				if (direction != 'right' && direction != 'left') { 
+					turnAudio.play();
+					direction = 'left';					 
+				}
 				break;
 			case 38:
 			case 87:
-				if (direction != 'down') { direction = 'up'; }
+				if (direction != 'down' && direction != 'up') { 
+					turnAudio.play();
+					direction = 'up';
+				}
 				break;
 			case 39:
 			case 68:
-				if (direction != 'left') { direction = 'right'; }
+				if (direction != 'right' && direction != 'left') {
+					turnAudio.play();
+					direction = 'right'; 
+				}
 				break;
 			case 40:
 			case 83:
-				if (direction != 'up') { direction = 'down'; }
+				if (direction != 'down' && direction != 'up') {
+					turnAudio.play();
+					direction = 'down'; 
+				}
 				break;
 		}
 		steps = false;
