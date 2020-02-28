@@ -141,7 +141,7 @@ function move() {
 	}
 
 	// Спаун альпак
-	if ((Math.round(Math.random()*2) == 1) & steps) {
+	if ((Math.round(Math.random()*23) == 1) & steps) {
 		coordinates = createAlpaca();
 		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
 		alpaca[alpaca.length - 1].classList.add('alpaca');		
