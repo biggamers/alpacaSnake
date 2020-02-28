@@ -1,5 +1,5 @@
 // Задаем поле игры
-let fieldHeight = 15, fieldWidth = 21, count = 1, seconds = 0, minutes = 0, time = '';
+let fieldHeight = 13, fieldWidth = 21, count = 1, seconds = 0, minutes = 0, time = '';
 let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
