@@ -107,20 +107,30 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		if (snakeBody.length == 3) { setTimeout(() => {alert("It's over!!\n\nYou scored NOTHING..\nlelz");}, 2000); }
-		else { setTimeout(() => { alert(`It's over!\n\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\nNot that much..`);}, 3000); }
+		if (snakeBody.length == 3) { setTimeout(() => {alert("It's over!!\n\nYou scored NOTHING..\nlelz");}, 1000); }
+		else { setTimeout(() => { alert(`It's over!\n\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\nNot that much..`);}, 2000); }
 		steps = false;
 		clearInterval(interval);
-		for (let i = 0; i < snakeBody.length; i++) {
-			snakeBody[i].style.background = 'url("img/cry.png") center no-repeat';
-			snakeBody[i].style.backgroundSize = 'cover';
-			snakeBody[i].style.border = '0px';
-			let randomRotation = Math.round(Math.random() * 120 - 100);
-			snakeBody[i].style.transform = 'rotate(' + randomRotation + 'deg)';
-		}
+
+		// FUCK альпаками :)
 		for (let i = 0; i < alpaca.length; i++) { alpaca[i].classList.remove('alpaca') };
 		let FUCK = [document.querySelector('[posX = "2"][posY = "2"]'),document.querySelector('[posX = "2"][posY = "3"]'),document.querySelector('[posX = "2"][posY = "4"]'),document.querySelector('[posX = "2"][posY = "5"]'),document.querySelector('[posX = "3"][posY = "5"]'),document.querySelector('[posX = "4"][posY = "5"]'),document.querySelector('[posX = "2"][posY = "6"]'),document.querySelector('[posX = "2"][posY = "7"]'),document.querySelector('[posX = "2"][posY = "8"]'),document.querySelector('[posX = "3"][posY = "8"]'),document.querySelector('[posX = "4"][posY = "8"]'),document.querySelector('[posX = "5"][posY = "8"]'),document.querySelector('[posX = "7"][posY = "8"]'),document.querySelector('[posX = "7"][posY = "7"]'),document.querySelector('[posX = "7"][posY = "6"]'),document.querySelector('[posX = "7"][posY = "5"]'),document.querySelector('[posX = "7"][posY = "4"]'),document.querySelector('[posX = "7"][posY = "3"]'),document.querySelector('[posX = "8"][posY = "2"]'),document.querySelector('[posX = "9"][posY = "2"]'),document.querySelector('[posX = "10"][posY = "3"]'),document.querySelector('[posX = "10"][posY = "4"]'),document.querySelector('[posX = "10"][posY = "5"]'),document.querySelector('[posX = "10"][posY = "6"]'),document.querySelector('[posX = "10"][posY = "7"]'),document.querySelector('[posX = "10"][posY = "8"]'),document.querySelector('[posX = "12"][posY = "3"]'),document.querySelector('[posX = "12"][posY = "4"]'),document.querySelector('[posX = "12"][posY = "5"]'),document.querySelector('[posX = "12"][posY = "6"]'),document.querySelector('[posX = "12"][posY = "7"]'),document.querySelector('[posX = "13"][posY = "2"]'),document.querySelector('[posX = "13"][posY = "8"]'),document.querySelector('[posX = "14"][posY = "2"]'),document.querySelector('[posX = "14"][posY = "8"]'),document.querySelector('[posX = "15"][posY = "3"]'),document.querySelector('[posX = "15"][posY = "7"]'),document.querySelector('[posX = "17"][posY = "2"]'),document.querySelector('[posX = "17"][posY = "3"]'),document.querySelector('[posX = "17"][posY = "4"]'),document.querySelector('[posX = "17"][posY = "5"]'),document.querySelector('[posX = "17"][posY = "6"]'),document.querySelector('[posX = "17"][posY = "7"]'),document.querySelector('[posX = "17"][posY = "8"]'),document.querySelector('[posX = "18"][posY = "4"]'),document.querySelector('[posX = "18"][posY = "6"]'),document.querySelector('[posX = "19"][posY = "3"]'),document.querySelector('[posX = "19"][posY = "7"]'),document.querySelector('[posX = "20"][posY = "2"]'),document.querySelector('[posX = "20"][posY = "8"]')];
 		for (let i = 0; i < FUCK.length; i++) { FUCK[i].classList.add('alpaca'); }
+		for (let i = 0; i < snakeBody.length; i++) {
+			if (!snakeBody[i].classList.contains('alpaca')) {
+				snakeBody[i].style.background = 'url("img/cry.png") center no-repeat';
+				snakeBody[i].style.backgroundSize = 'cover';
+				snakeBody[i].style.border = '0px';
+				let randomRotation = Math.round(Math.random() * 100 - 90);
+				snakeBody[i].style.transform = 'rotate(' + randomRotation + 'deg)';
+			} else {
+				snakeBody[i].style.background = 'url("img/alpa.png") center no-repeat';
+				snakeBody[i].style.backgroundSize = 'cover';
+				snakeBody[i].style.border = '0px';
+				let randomRotation = Math.round(Math.random() * 50 - 30);
+				snakeBody[i].style.transform = 'rotate(' + randomRotation + 'deg)';
+			}
+		}
 	}
 
 	// Конец движения
@@ -141,7 +151,7 @@ function move() {
 	}
 
 	// Спаун альпак
-	if ((Math.round(Math.random()*23) == 1) & steps) {
+	if ((Math.round(Math.random()*21) == 1) & steps) {
 		coordinates = createAlpaca();
 		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
 		alpaca[alpaca.length - 1].classList.add('alpaca');		
@@ -163,6 +173,7 @@ function move() {
 	} else if (seconds < 10 ) { time = `${minutes}:0${seconds}.${count}`; }
 	else { time = `${minutes}:${seconds}.${count}`; }
 
+	// Апдейт
 	input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
 }
 
