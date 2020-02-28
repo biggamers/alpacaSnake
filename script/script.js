@@ -107,7 +107,7 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		setTimeout(() => { alert("It's over! Your score: " + (snakeBody.length-3)); }, 600);
+		setTimeout(() => { alert("It's over! Your score: " + (snakeBody.length-3)); }, 2000);
 		clearInterval(interval);
 		for (let i = 0; i < snakeBody.length; i++) {
 			snakeBody[i].style.background = 'url("icons/cry.png") center no-repeat';
