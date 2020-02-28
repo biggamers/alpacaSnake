@@ -1,5 +1,5 @@
 // Задаем поле игры
-let fieldHeight = 13, fieldWidth = 20, count = 0, seconds = 0, minutes = 0;
+let fieldHeight = 13, fieldWidth = 21, count = 1, seconds = 0, minutes = 0, time = '';
 let field = document.createElement('div');
 document.body.appendChild(field);
 field.classList.add('field');
@@ -107,7 +107,9 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		setTimeout(() => { alert("It's over! Your score: " + (snakeBody.length-3)); }, 2000);
+		if (snakeBody.length == 3) { setTimeout(() => {alert("It's over!!\nYou scored NOTHING..\nlelz");}, 2000); }
+		else { setTimeout(() => { alert(`It's over!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\nNot that much..`);}, 3000); }
+		steps = false;
 		clearInterval(interval);
 		for (let i = 0; i < snakeBody.length; i++) {
 			snakeBody[i].style.background = 'url("icons/cry.png") center no-repeat';
@@ -116,7 +118,13 @@ function move() {
 			let randomRotation = Math.round(Math.random() * 120 - 100);
 			snakeBody[i].style.transform = 'rotate(' + randomRotation + 'deg)';
 		}
+		for (let i = 0; i < alpaca.length; i++) { alpaca[i].classList.remove('alpaca') };
+		let FUCK = [document.querySelector('[posX = "2"][posY = "2"]'),document.querySelector('[posX = "2"][posY = "3"]'),document.querySelector('[posX = "2"][posY = "4"]'),document.querySelector('[posX = "2"][posY = "5"]'),document.querySelector('[posX = "3"][posY = "5"]'),document.querySelector('[posX = "4"][posY = "5"]'),document.querySelector('[posX = "2"][posY = "6"]'),document.querySelector('[posX = "2"][posY = "7"]'),document.querySelector('[posX = "2"][posY = "8"]'),document.querySelector('[posX = "3"][posY = "8"]'),document.querySelector('[posX = "4"][posY = "8"]'),document.querySelector('[posX = "5"][posY = "8"]'),document.querySelector('[posX = "7"][posY = "8"]'),document.querySelector('[posX = "7"][posY = "7"]'),document.querySelector('[posX = "7"][posY = "6"]'),document.querySelector('[posX = "7"][posY = "5"]'),document.querySelector('[posX = "7"][posY = "4"]'),document.querySelector('[posX = "7"][posY = "3"]'),document.querySelector('[posX = "8"][posY = "2"]'),document.querySelector('[posX = "9"][posY = "2"]'),document.querySelector('[posX = "10"][posY = "3"]'),document.querySelector('[posX = "10"][posY = "4"]'),document.querySelector('[posX = "10"][posY = "5"]'),document.querySelector('[posX = "10"][posY = "6"]'),document.querySelector('[posX = "10"][posY = "7"]'),document.querySelector('[posX = "10"][posY = "8"]'),document.querySelector('[posX = "12"][posY = "3"]'),document.querySelector('[posX = "12"][posY = "4"]'),document.querySelector('[posX = "12"][posY = "5"]'),document.querySelector('[posX = "12"][posY = "6"]'),document.querySelector('[posX = "12"][posY = "7"]'),document.querySelector('[posX = "13"][posY = "2"]'),document.querySelector('[posX = "13"][posY = "8"]'),document.querySelector('[posX = "14"][posY = "2"]'),document.querySelector('[posX = "14"][posY = "8"]'),document.querySelector('[posX = "15"][posY = "3"]'),document.querySelector('[posX = "15"][posY = "7"]'),document.querySelector('[posX = "17"][posY = "2"]'),document.querySelector('[posX = "17"][posY = "3"]'),document.querySelector('[posX = "17"][posY = "4"]'),document.querySelector('[posX = "17"][posY = "5"]'),document.querySelector('[posX = "17"][posY = "6"]'),document.querySelector('[posX = "17"][posY = "7"]'),document.querySelector('[posX = "17"][posY = "8"]'),document.querySelector('[posX = "18"][posY = "4"]'),document.querySelector('[posX = "18"][posY = "6"]'),document.querySelector('[posX = "19"][posY = "3"]'),document.querySelector('[posX = "19"][posY = "7"]'),document.querySelector('[posX = "20"][posY = "2"]'),document.querySelector('[posX = "20"][posY = "8"]')];
+		for (let i = 0; i < FUCK.length; i++) { FUCK[i].classList.add('alpaca'); }
+
+
 	}
+	console.log(alpaca, alpaca.length);
 
 	// Конец движения
 	snakeBody[0].classList.add('head');
@@ -136,7 +144,7 @@ function move() {
 	}
 
 	// Спаун альпак
-	if ((Math.round(Math.random()*23) == 1) & steps) {
+	if ((Math.round(Math.random()*2) == 1) & steps) {
 		coordinates = createAlpaca();
 		alpaca.push(document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'));
 		alpaca[alpaca.length - 1].classList.add('alpaca');		
@@ -144,36 +152,40 @@ function move() {
 	
 	// Таймер
 	count+=2;
-	if (count == 10) {
+	if (count == 11) {
 		seconds++;
-		count=0;
+		count=1;
 		if (seconds == 60) {
 			minutes++;
 			seconds=0;
 		}
 	}
+	if (minutes < 10) {
+		if (seconds < 10) { time = `0${minutes}:0${seconds}.${count}`; }
+		else { time = `0${minutes}:${seconds}.${count}`; }
+	} else if (seconds < 10 ) { time = `${minutes}:0${seconds}.${count}`; }
+	else { time = `${minutes}:${seconds}.${count}`; }
 
-	input.value = `Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
+	input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
 }
 
 
-
+// Бокс счет и таймер
 input = document.createElement('input');
 document.body.appendChild(input);
 input.style.cssText = `
 width: 400px;
 background-color: #f5abef;
-border-radius: 10%;
+border-radius: 7%;
 border: 3px solid #000;
 text-align: center;
 display: flex;
 margin: auto;
 margin-top: 10px;
 font-size: 30px;`;
-input.value = `Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
+input.value = `Score.. ${snakeBody.length-3}  Time.. ${time}`;
 
-
-
+// Запуск
 let interval = setInterval(move, 200);
 
 // Нажатие клавиш
