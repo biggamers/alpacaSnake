@@ -153,7 +153,7 @@ function move() {
 		}
 	}
 
-	input.value = `Score.. ${snakeBody.length-3} Time.. ${minutes}:${seconds}.${count}`;
+	input.value = `Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
 }
 
 
@@ -170,7 +170,7 @@ display: flex;
 margin: auto;
 margin-top: 10px;
 font-size: 30px;`;
-input.value = `Score.. ${snakeBody.length-3} Time.. ${minutes}:${seconds}.${count}`;
+input.value = `Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
 
 
 
