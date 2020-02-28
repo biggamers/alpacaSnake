@@ -107,8 +107,8 @@ function move() {
 
 	// Условия окончания игры
 	if (snakeBody[0].classList.contains('snakeBody') || snakeBody[0].classList.contains('alpaca')) {
-		if (snakeBody.length == 3) { setTimeout(() => {alert("\nIT'S OVER!!\n\nYou scored NOTHING..\nlelz\n\nDo not eat alpacas.");}, 1000); }
-		else { setTimeout(() => { alert(`\nIT'S OVER!!\n\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\nNot that much..\n\nTop mouses killed: 67\nTop time elapsed: 07:49.1`);}, 2000); }
+		if (snakeBody.length == 3) { setTimeout(() => {alert("IT'S OVER!!\nnYou scored NOTHING....\n\n\nDo not eat alpacas.");}, 1000); }
+		else { setTimeout(() => { alert(`IT'S OVER!!\nYou collect ${snakeBody.length-3} dead mouses and survived for ${time} seconds.\n\n\nTop mouses killed: 67\nTop time elapsed: 07:49.1`);}, 2000); }
 		steps = false;
 		clearInterval(interval);
 
