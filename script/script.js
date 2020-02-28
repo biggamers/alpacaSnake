@@ -153,7 +153,7 @@ function move() {
 		}
 	}
 
-	input.value = `  Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
+	input.value = `Score.. ${snakeBody.length-3} Time.. ${minutes}:${seconds}.${count}`;
 }
 
 
@@ -161,12 +161,16 @@ function move() {
 input = document.createElement('input');
 document.body.appendChild(input);
 input.style.cssText = `
+width: 400px;
+background-color: #f5abef;
+border-radius: 10%;
+border: 3px solid #000;
+text-align: center;
+display: flex;
 margin: auto;
 margin-top: 10px;
-font-size: 30px;
-display: block`;
-input.value = `  Score.. ${snakeBody.length-3}  Time.. ${minutes}:${seconds}.${count}`;
-
+font-size: 30px;`;
+input.value = `Score.. ${snakeBody.length-3} Time.. ${minutes}:${seconds}.${count}`;
 
 
 
