@@ -144,7 +144,7 @@ function move() {
 	
 	// Таймер
 	count+=2;
-	if (count % 10 == 0) {
+	if (count == 10) {
 		seconds++;
 		count=0;
 		if (seconds == 60) {
