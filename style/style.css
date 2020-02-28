@@ -4,7 +4,7 @@
 
 body {
 	margin-top: 10px;
-	margin: auto;
+	padding: 10px;
 	background: linear-gradient(90deg, #ede053, #97ff05 23% 77%, #ede053);
 }
 
